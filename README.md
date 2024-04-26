@@ -1,61 +1,35 @@
-# RPI-PICO-I2C-LCD
-This is a project which adapts code from another user to allow usage of the PCF8574 I2C lcd backpack for either 20x4 or 16x2 lcd screens.
+#### Bitcoin Feed with Raspberry Pi Pico W and I2C 1602 Display
 
-Credit: https://github.com/dhylands/python_lcd/tree/master/lcd mostly to Dave Hylands for the basic api and lcd driver code.
+Programs a Pico to fetch the price and block height every minute and displays the data from the I2C interface to an LCD screen.
 
-Project: Check it out for a full step-by-setp guide on Instructables: https://www.instructables.com/RPI-Pico-I2C-LCD-Control/ 
+![Picofeed](./picofeed.jpg)
 
-This is code adaptded for micropython and the Raspberry Pi PICO specifically.
+#### The Parts
 
-Usage: 
-- Download all 3 .py files included. 
-- Open Thonny IDE with the 3 files
-- Make pin edits or setup changes (See below for options) 
-- DO NOT EDIT FILE NAMES!
-- In Thonny, go to top menu File => Save Copy => Raspberry Pi Pico and save each file to the board with the same name as downloaded and with a .PY extension when saving it to the board. 
-- Switch to the pico_i2c_lcd_test.py (this is the main file) and click run. This should be able to initalize the LCD display if settings are right.
-- If you get errors, see below for a known list of errors and their fixes
-- Wiring Diagram LCD_bb.jpg! Please look here for a fritzing diagram!
+-[x] [Raspberry Pi Pico W](https://www.amazon.com/Pico-Raspberry-Pre-Soldered-Dual-core-Processor/dp/B0BK9W4H2Q/ref=sr_1_4?crid=1BHUD894SXLEH&dib=eyJ2IjoiMSJ9.fwbQmoH_WONpf6FqMJoavUFIlwWdZydA1wDrREtCQjcxpQnpHVlkSc1ljXlQuOBEviXrW4IK106l5JvpCLEja--yFZU8SGRD3T_wjiJAFxKM5GSTWO1xdDx5nZ-rYSHC21FwKRNQlFgQcn5-XzRR1ZrzulI2UPfomvRnE0cRPiaoN-nmUq9IyTSQyWN69AS8GxU2N7LFDTjK4IaJkac7zaWjeddaIrQCrCGlFFigtJiEycsVuzDvQUpQnJDB1FJWxhdN2R9ZIE3Io5OzS38CQ_UvbpS2_wgMlvNXRdJwXLg.d6B0Ne6Lc64tG7EGnWtVvx4APMNi102AARYgU-ui-gE&dib_tag=se&keywords=raspberry+pi+pico+w&qid=1714100199&s=electronics&sprefix=raspberry+pi+pico+%2Celectronics%2C180&sr=1-4) with pre-soldered header pins
 
-Requirements:
-- 3.3 - 5V level translator. This is crucial to encure the lcd recieves the commands properly. I recommend this: https://www.adafruit.com/product/757 (Must be Bi-Directional)
-- PCF8574 I2C LCD backpack. (These are common to find)
+-[x] [1602 LCD Display Module](https://www.amazon.com/GeeekPi-Character-Backlight-Raspberry-Electrical/dp/B07S7PJYM6/ref=sr_1_3?crid=1B9K8V0M4JIU4&dib=eyJ2IjoiMSJ9.NHHShKxQ3uIocjrDetOFyu5kBGo87N4pCyU6pLU4Nshz_xyNWSktruDgVruT0alISbyHAC5mxLz0kionSfPYZsHcIdPxtQjfhM6c8vF9feu1gtOOF2qDRMsWud3jXDMGSOzA7ft2m9hl58tTWlx1zhHCMhcEJxzh-bx4iNHVsC8dXtLCIiWiqydeUULa_lTBH6oze_gJIX_aUtKJgPzWUeK48bMzMzdik7e1MpD-YfdIyvfMV5HYl_Uy8fHoKoLfKbnBSsWcvplpg07atbZ7mt0bYZThQ1tG3poLsujain8.5cSX_XI26JSxs8oe_5xHTf455_z1YmYRan-mku4bTqA&dib_tag=se&keywords=2x16+lcd+display+i2c&qid=1714100237&s=electronics&sprefix=2x16+lcd+display+i2c%2Celectronics%2C172&sr=1-3) with 4 pin SDA/SCL backpack
 
-Setup Changes:
-- Make sure the top address is set correctly!
-Use this small program to scan for I2C devices:
+-[x] [A breadboard](https://www.amazon.com/DEYUE-breadboard-Set-Prototype-Board/dp/B07LFD4LT6/ref=sr_1_3?crid=3CP9E85VB8HEP&dib=eyJ2IjoiMSJ9.0XjhQpvsxVGvVwki4XDjTQ1NwlQgUbmPkISrVDMlHvUJ74nv754rZAUCzJ7kgtUD3pwxm_bdXd9CvmXk3eP9z8Hs6wBFZ3t31iQ3SytGpxhaeIJrTYczfOZXE9dn7B353NM52FY6EduYHq_CP1fis8hEgaYYCEcbGgVij5eG0rgxuQ65_sA4ZsNV2wHVewG-mE7crDHzR6adIwMFdld8t-kzynZ08loLt898wE2MZV0.ltFF8MNyt17sx_ArWk2oZCnFgjZZkSZMOKdIssk-UJ4&dib_tag=se&keywords=breadboard&qid=1714100724&sprefix=breadboar%2Caps%2C275&sr=8-3)
+
+-[x] [Male to female jumper wires](https://www.amazon.com/Elegoo-EL-CP-004-Multicolored-Breadboard-arduino/dp/B01EV70C78/ref=sr_1_3?crid=26CZV37H2KD90&dib=eyJ2IjoiMSJ9.1JTtZYzqh1JVSNxn_zOlNMNRLxFT2KI-nY_HZ8AEBLUGfAf_2KcjXo9ROFkGCOp88Xpy0he-jUG-HQV-vDVDGyp71LrqMw_SwC37FnCAa1xvRxftg1JLnGJcDH0G1ZE3KHfxu-oRkGCizPwggeekczIV3lLfOvsJk66z2h3nk2eR8hklNHhAoGm5UZbNi3qSqVAI9lwynSeEM64bH8X60wc4-XFfIW09IBJNhvX9Ah8.CJcJY3L8iZ4Yyh0oULjU7Ixc25__aC55mgfDCCZgrSE&dib_tag=se&keywords=breadboard+jumper+wires&qid=1714100776&sprefix=breadboard+jumper+%2Caps%2C220&sr=8-3)
+
+-[x] Standard USB cable with data relay
+
+-[x] External power for standalone setup
+
+#### Getting Started
+
+`git clone https://github.com/rustaceanrob/picofeed.git`
+
+`cd picofeed`
+
+The preferred method of bootstrapping the setup is the [Thonny](https://thonny.org/) micropython editor. To download micropython, open Thonny and connect the Pico to the USB cable, select `Run > Configure Interpreter` and download micropython for the Pico W target. Alter `main.py` lines 9 and 10, filling in your WiFi name (display name) and password, so your Pico can connect to the local network.
 
 ```python
-import machine
-sda=machine.Pin(0)
-scl=machine.Pin(1)
-i2c=machine.I2C(0,sda=sda, scl=scl, freq=400000)
-print(i2c.scan())
+ssid = ''
+password = ''
 ```
 
-- Once you get an address through the console (REPL), this will be in decimal and not hex. You can convert the decimal to hex or simply put a decimal address in the setup.
-in my case, the decimal addr. was 39 which converts to 0x27 in hex.
-- Ensure that your SCL and SDA pins are selected properly in accordance with the Pico's pin table. These connect to the low voltage side of the translator with a 3.3V Reference from the board. The high voltage side gets a 5V reference from the VBUS pin of the Pico.
-- Finally, assure the I2C_NUM_ROWS and I2C_NUM_COLS are set properly!
-
-Functions / Usage: 
-
-These are the python commands used in a program! (They can all be found in the lcd_api.py file with definitions to their functions)
-- lcd.putstr("Text goes here!")                     - Send a string of chars to the display IMPORTANT: Use this for printing a variable: lcd.putstr(str(Variable)) [Turns variable into string] 
-- lcd.show_cursor() / lcd.hide_cursor()             - Show / Hide the cursor of the lcd (White bar)
-- lcd.blink_cursor_on() / lcd.blink_cursor_off()    - Turn on / Off the blinking cursor upon printing
-- lcd.backlight_on() / lcd.backlight_off()          - Turn on / Off backlight of the LCD (Controlled by a small transistor on the backpack)
-- lcd.display_on() / lcd.display_off()              - Turn on / Off the display (Not backlight but the entire chip)
-- lcd.clear()                                       - Clear all chars or anything written to the display
-- lcd.move_to(Col, Row)                             - Move to position based on row and col values (Y, X)
-- lcd.custom_char(Num, bytearray([HEX chars])))     - Num can be any integer 0 - 8 (Writing to CGRAM locations) merely used for numbering. The HEX chars are simply made by using this link: https://maxpromer.github.io/LCD-Character-Creator/. It will provide a string of Hex charecters which can replace the "HEX chars" in the example command.
-
-Errors:
-
-OSERROR : 5 (This is quite a common error, 5 means I/O error. Check Your connections. This means codes can't be sent or recieved ensure SCL and SDA are properly connected through the level translator or, use 2x 1K resistors, connected between +5V and the SCL and SDA pins, as external pullups.
-
-Feel to leave comments or questions / issues and I will try to answer / resolve them as quick as possible!
-
-For people wondering how to use this code, Tinkernut on Youtube created a very nice guide + some more features! https://www.youtube.com/watch?v=B8Kr_3xHjqE&t
-
+To run the program when the breadboard wiring is setup to the LCD interface, open Thonny, connect the Pico to the USB and navigate to `File > Save Copy`. Save each `.py` file to the Pico. Finally, select `Run > Run Current Script`.
 

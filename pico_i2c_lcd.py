@@ -19,6 +19,7 @@ class I2cLcd(LcdApi):
     def __init__(self, i2c, i2c_addr, num_lines, num_columns):
         self.i2c = i2c
         self.i2c_addr = i2c_addr
+        utime.sleep_ms(100)
         self.i2c.writeto(self.i2c_addr, bytes([0]))
         utime.sleep_ms(20)   # Allow LCD time to powerup
         # Send reset 3 times
