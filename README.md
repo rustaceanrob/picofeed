@@ -18,6 +18,10 @@ Programs a Pico to fetch the price and block height every minute and displays th
 
 - [x] External power for standalone setup
 
+#### Breadboard Wiring
+
+![Wiring](./wiring.png)
+
 #### Getting Started
 
 `git clone https://github.com/rustaceanrob/picofeed.git`
